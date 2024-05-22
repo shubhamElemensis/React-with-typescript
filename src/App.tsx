@@ -1,37 +1,23 @@
 import React, { useState } from "react";
-// interface book {
-//   name: string;
-//   age: number;
-// }
+import Todo from "./components/Todo";
+import Add from "./components/Add";
 
-interface user {
-  name: string;
-  age: number;
+interface todo {
+  id: number;
+  text: string;
 }
 export default function App() {
-  const [input, setinput] = useState<user| null >({ name: "", age: 0 });
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-
-      setinput({
-        name: e.target.value,
-        age: e.target.value
-    });
+  const [todos, settodos] = useState<todo[]>([]);
+  const addTodoHandler = (text: string) => {
+    console.log(text);
+    settodos([...todos,{ id: Math.random(), text: text }]);
   };
+  console.log(todos);
+
   return (
-    <div>
-      <input
-        type="text"
-        name="name"
-        onChange={handleChange}
-        placeholder="name"
-      />
-      <input
-        type="number"
-        name="age"
-        onChange={handleChange}
-        placeholder="age"
-      />
-    </div>
+    <>
+      <Add Add={addTodoHandler} />
+      <Todo items={todos} />
+    </>
   );
 }
